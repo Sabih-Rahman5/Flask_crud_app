@@ -1,0 +1,61 @@
+
+{% extends 'base.html' %}
+
+
+{% block head %} 
+
+<title>Flask test app</title>
+
+
+{%endblock%}
+
+{% block body %} 
+    <div class= "header">
+        <h1><b>Task Master App</b></h1>
+    </div>
+
+    {% if tasks|length <1 %}
+    <div class="null_header">
+        <h4>No Tasks To Show</h4>
+    </div>
+
+    {% else %}
+    <div class="content">
+        <table>
+            <tr>
+                <th>Task</th>
+                <th>Added</th>
+                <th>Actions</th>
+            </tr>
+
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.content }}</td>
+                <td>{{ task.date_created.date() }}</td>
+                <td>
+                    <a href="/delete/{{ task.id }}">Delete</a>
+                    <br>
+                    <a href="/update/{{ task.id }}">Update</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    {% endif %}
+
+    <div class="form">
+
+
+        <form action="/" method="POST">
+            <input type="text" name="content" id="content">
+            <input type="submit" value="Add Task">                      
+        </form>
+
+
+    </div>
+
+
+
+{%endblock%}
+
